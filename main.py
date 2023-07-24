@@ -47,6 +47,7 @@ def search_for_user_playlists(token,user_id):
     
     return json_result
 
+#creates the window to fetch user info
 def getUserInfo():
     top = tk.Tk()
     top.title("Fido")
