@@ -55,11 +55,7 @@ def getUserInfoWindow():
     #background color set to dark grey
     top.configure(bg = '#1e1d21')
     top.geometry("400x400")
-    w = tk.Text(top,height=2, width=40)
-    w.tag_configure("tag_name", justify='center')
-    w.insert(tk.END, "Enter your Spotify UserName or User ID")
-    w.tag_add("tag_name", "1.0", "end")
-    w.pack()
+
     return top
 
 
@@ -72,6 +68,12 @@ def main():
     #create window
     top = getUserInfoWindow()
 
+    w = tk.Text(top,height=2, width=40)
+    w.tag_configure("tag_name", justify='center')
+    w.insert(tk.END, "Enter your Spotify UserName or User ID")
+    w.tag_add("tag_name", "1.0", "end")
+    w.pack()
+    
     user_Id = tk.StringVar()
     entry = Entry(top,textvariable = user_Id, width = 20)
     entry.pack()
