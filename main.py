@@ -51,6 +51,9 @@ def search_for_user_playlists(token,user_id):
 def getUserInfoWindow():
     top = tk.Tk()
     top.title("Fido")
+    top.frame()
+    #background color set to dark grey
+    top.configure(bg = '#1e1d21')
     top.geometry("400x400")
     w = tk.Text(top,height=2, width=40)
     w.tag_configure("tag_name", justify='center')
