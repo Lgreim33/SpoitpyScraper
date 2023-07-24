@@ -48,7 +48,7 @@ def search_for_user_playlists(token,user_id):
     return json_result
 
 #creates the window to fetch user info
-def getUserInfo():
+def getUserInfoWindow():
     top = tk.Tk()
     top.title("Fido")
     top.geometry("400x400")
@@ -67,7 +67,7 @@ def main():
 
     token = get_token()
     #create window
-    top = getUserInfo()
+    top = getUserInfoWindow()
 
     user_Id = tk.StringVar()
     entry = Entry(top,textvariable = user_Id, width = 20)
@@ -87,8 +87,16 @@ def main():
     More recently played songs will be at the front of the array
     '''
     result = search_for_user_playlists(token, userID)
-
-    print(result[0]["name"])
+    
+    playArray = []
+    
+    #create tuple of names of the playlsits
+    for playlist in result:
+        playArray.append(playlist["name"])
+    
+    for name in playArray:
+        print(name)
+    
 
 if __name__ == "__main__":
     main()
