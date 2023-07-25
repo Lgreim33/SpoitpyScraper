@@ -25,20 +25,19 @@ def main():
     #create window
     top = App()
 
-    prompt = tk.Label(top,text="Enter your Spotify UserName or User ID")
+    prompt = ctk.CTkLabel(top,text="Enter your Spotify UserName or User ID",fg_color="transparent",font=("arial",15))
     prompt.pack()
 
     
-    user_Id = tk.StringVar()
-    entry = Entry(top,textvariable = user_Id, width = 20)
+    user_Id = ctk.StringVar()
+    entry = ctk.CTkEntry(top,textvariable = user_Id, width = 200)
     entry.pack()
 
     #get user button, have them pass their user ID
-    submitButton = tk.Button(top,text="Enter",command=top.quit)
+    submitButton = ctk.CTkButton(top,text="Enter",command=top.quit)
     submitButton.pack()
     top.mainloop()
     userID = user_Id.get()
-    print(userID)
     
     '''
     send query to spotipy api.
@@ -48,18 +47,22 @@ def main():
     '''
     result = req.search_for_user_playlists(token, userID)
     
-    playArray = []
+    #play array will hold every found playlist
+    playList = []
     clicked = StringVar()
 
-    clicked.set("--playlist--")
+    clicked.set("--playlists--")
 
     #create tuple of names of the playlsits
-    for playlist in result:
-        playArray.append(playlist["name"])
+    for item in result:
+        playList.append(item["name"])
+    
+    songsList = []
     
 
-    drop = OptionMenu(top ,clicked ,*playArray )
+    drop = ctk.CTkOptionMenu(master = top ,command = clicked ,values = playList, dynamic_resizing=True)
     drop.pack()
+    #button to submit selected playlist
     top.mainloop()
 
 if __name__ == "__main__":
