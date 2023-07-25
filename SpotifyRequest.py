@@ -5,13 +5,14 @@ import json
 from requests import post,get
 
 
-load_dotenv()
 
-client_id = os.getenv("CLIENT_ID")
-client_secret =os.getenv("CLIENT_SECRET")
 
 #get user token 
-def get_token():
+def get_token():   
+         
+    load_dotenv()
+    client_id = os.getenv("CLIENT_ID")
+    client_secret =os.getenv("CLIENT_SECRET")
     auth_string = client_id + ":" + client_secret
     auth_bytes = auth_string.encode("utf-8")
     auth_base64 = str(base64.b64encode(auth_bytes),"utf-8")
@@ -43,3 +44,4 @@ def search_for_user_playlists(token,user_id):
         return None
     
     return json_result
+
