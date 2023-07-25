@@ -49,6 +49,7 @@ def main():
     
     #play array will hold every found playlist
     playList = []
+    playDict = {}
     clicked = StringVar()
 
     clicked.set("--playlists--")
@@ -56,14 +57,18 @@ def main():
     #create tuple of names of the playlsits
     for item in result:
         playList.append(item["name"])
+        playDict.update({item["name"] : item["id"]})
     
     songsList = []
     
 
     drop = ctk.CTkOptionMenu(master = top ,command = clicked ,values = playList, dynamic_resizing=True)
     drop.pack()
+    get_songs = ctk.CTkButton(master = top, text = "Get Songs", command=req.get_playlist_items(token,playDict[drop.get()],songsList))
+    get_songs.pack()
     #button to submit selected playlist
     top.mainloop()
+    print(songsList)
 
 if __name__ == "__main__":
     main()

@@ -40,12 +40,11 @@ def search_for_user_playlists(token,user_id):
     json_result = json.loads(result.content)["items"]
     
     if(len(json_result) == 0):
-        print(f"{user_id} has no playlists")
         return None
     
     return json_result
 
-def get_playlist_items(token,playlist_id):
+def get_playlist_items(token,playlist_id,songList):
     url = f"https://api.spotify.com/v1/playlists/{playlist_id}/tracks"
     headers = get_auth_header(token)
 
@@ -53,8 +52,10 @@ def get_playlist_items(token,playlist_id):
     json_result = json.loads(result.content)["items"]
 
     if(len(json_result) == 0):
-        print(f"Playlist has no songs")
-        return None
+        songList = None
+        return
     
-    return json_result
+    for item in json_result:
+        songList.append(item)
+    return
 
