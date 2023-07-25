@@ -5,10 +5,19 @@ import json
 from requests import post,get
 import tkinter as tk
 from tkinter import *
-import customtkinter as CTk
+import customtkinter as ctk
 import SpotifyRequest as req
 
+ctk.set_appearance_mode("System")
 
+ctk.set_default_color_theme("blue")
+
+class App(ctk.CTk):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args,**kwargs)
+        self.title("Fetcher")
+        self.geometry("400x400")
 
 #creates the window to fetch user info
 def getUserInfoWindow():
@@ -28,7 +37,7 @@ def main():
 
     token = req.get_token()
     #create window
-    top = getUserInfoWindow()
+    top = App()
 
     w = tk.Text(top,height=2, width=40)
     w.tag_configure("tag_name", justify='center')
@@ -43,7 +52,7 @@ def main():
     #get user button, have them pass their user ID
     submitButton = tk.Button(top,text="Enter",command=top.quit)
     submitButton.pack()
-    tk.mainloop()
+    top.mainloop()
     userID = user_Id.get()
     print(userID)
     
@@ -67,7 +76,7 @@ def main():
 
     drop = OptionMenu(top ,clicked ,*playArray )
     drop.pack()
-    tk.mainloop()
+    top.mainloop()
 
 if __name__ == "__main__":
     main()
