@@ -1,12 +1,11 @@
 import os
-from dotenv import load_dotenv
-import base64
-import json
-from requests import post,get
 import tkinter as tk
 from tkinter import *
 import customtkinter as ctk
 import SpotifyRequest as req
+
+#TODO: fix ctk window sizing issues on windows 10 devices
+
 
 ctk.set_appearance_mode("System")
 
@@ -18,8 +17,6 @@ class App(ctk.CTk):
         super().__init__(*args,**kwargs)
         self.title("Fetcher")
         self.geometry("400x400")
-
-
 
 
 def main():
