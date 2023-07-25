@@ -18,7 +18,6 @@ class App(ctk.CTk):
         self.title("Fetcher")
         self.geometry("400x400")
 
-
 def main():
 
 
@@ -26,11 +25,9 @@ def main():
     #create window
     top = App()
 
-    w = tk.Text(top,height=2, width=40)
-    w.tag_configure("tag_name", justify='center')
-    w.insert(tk.END, "Enter your Spotify UserName or User ID")
-    w.tag_add("tag_name", "1.0", "end")
-    w.pack()
+    prompt = tk.Label(top,text="Enter your Spotify UserName or User ID")
+    prompt.pack()
+
     
     user_Id = tk.StringVar()
     entry = Entry(top,textvariable = user_Id, width = 20)
