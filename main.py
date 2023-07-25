@@ -19,16 +19,6 @@ class App(ctk.CTk):
         self.title("Fetcher")
         self.geometry("400x400")
 
-#creates the window to fetch user info
-def getUserInfoWindow():
-    top = tk.Tk()
-    top.title("Fido")
-    top.frame()
-    #background color set to dark grey
-    top.configure(bg = '#1e1d21')
-    top.geometry("400x400")
-
-    return top
 
 
 
