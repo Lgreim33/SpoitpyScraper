@@ -60,8 +60,6 @@ def getUserInfoWindow():
 
 
 
-
-
 def main():
 
     token = get_token()
@@ -94,14 +92,20 @@ def main():
     result = search_for_user_playlists(token, userID)
     
     playArray = []
-    
+    clicked = StringVar()
+
+    clicked.set("--playlist--")
+
     #create tuple of names of the playlsits
     for playlist in result:
         playArray.append(playlist["name"])
     
     for name in playArray:
         print(name)
-    
+
+    drop = OptionMenu(top ,clicked ,*playArray )
+    drop.pack()
+    tk.mainloop()
 
 if __name__ == "__main__":
     main()
