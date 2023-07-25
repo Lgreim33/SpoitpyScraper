@@ -56,6 +56,6 @@ def get_playlist_items(token,playlist_id,songList):
         return
     
     for item in json_result:
-        songList.append(item)
+        songList.append(item["track"])
     return
 

@@ -68,7 +68,7 @@ def main():
     get_songs.pack()
     #button to submit selected playlist
     top.mainloop()
-    print(songsList)
+    print(songsList[0]["name"])
 
 if __name__ == "__main__":
     main()
