@@ -45,3 +45,16 @@ def search_for_user_playlists(token,user_id):
     
     return json_result
 
+def get_playlist_items(token,playlist_id):
+    url = f"https://api.spotify.com/v1/playlists/{playlist_id}/tracks"
+    headers = get_auth_header(token)
+
+    result = get(url,headers = headers)
+    json_result = json.loads(result.content)["items"]
+
+    if(len(json_result) == 0):
+        print(f"Playlist has no songs")
+        return None
+    
+    return json_result
+
