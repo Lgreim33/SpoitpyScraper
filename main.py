@@ -26,12 +26,12 @@ def main():
     top = App()
 
     prompt = ctk.CTkLabel(top,text="Enter your Spotify UserName or User ID",fg_color="transparent",font=("arial",15))
-    prompt.pack()
+    prompt.pack(padx = 10)
 
     
     user_Id = ctk.StringVar()
     entry = ctk.CTkEntry(top,textvariable = user_Id, width = 200)
-    entry.pack()
+    entry.pack(padx=20, pady=10)
 
     #get user button, have them pass their user ID
     submitButton = ctk.CTkButton(top,text="Enter",command=top.quit)
