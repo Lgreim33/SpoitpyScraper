@@ -31,7 +31,7 @@ def get_token():
 def get_auth_header(token):
     return {"Authorization": "Bearer " + token}
 
-#get list of user playlist
+#get list of user playlist,store in result
 def search_for_user_playlists(token,user_id):
     url = f"https://api.spotify.com/v1/users/{user_id}/playlists"
     headers = get_auth_header(token)

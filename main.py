@@ -63,7 +63,7 @@ def main():
     
 
     drop = ctk.CTkOptionMenu(master = top ,command = clicked ,values = playList, dynamic_resizing=True)
-    drop.pack()
+    drop.pack(pady = 10)
     get_songs = ctk.CTkButton(master = top, text = "Get Songs", command=req.get_playlist_items(token,playDict[drop.get()],songsList))
     get_songs.pack()
     #button to submit selected playlist
