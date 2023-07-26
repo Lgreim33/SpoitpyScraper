@@ -9,7 +9,7 @@ import SpotifyRequest as req
 
 ctk.set_appearance_mode("System")
 
-ctk.set_default_color_theme("blue")
+ctk.set_default_color_theme("green")
 
 class App(ctk.CTk):
 
@@ -61,12 +61,23 @@ def main():
     
     songsList = []
     
-
+    #button to submit selected playlist
     drop = ctk.CTkOptionMenu(master = top ,command = clicked ,values = playList, dynamic_resizing=True)
     drop.pack(pady = 10)
     get_songs = ctk.CTkButton(master = top, text = "Get Songs", command=req.get_playlist_items(token,playDict[drop.get()],songsList))
     get_songs.pack()
-    #button to submit selected playlist
+    
+    #create selection menu of songs to search for
+    checkVar = StringVar()
+    checkItem = []
+    for song in songsList:
+        checkbox = ctk.CTkCheckBox(master=top, text=song["name"],variable=checkVar,
+                                   onvalue="on", offvalue= "off")
+        checkItem.append(checkbox)
+    
+    for item in checkItem:
+        item.pack()
+    
     top.mainloop()
     print(songsList[0]["name"])
 
