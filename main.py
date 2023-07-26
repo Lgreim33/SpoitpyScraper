@@ -4,7 +4,6 @@ from tkinter import *
 import customtkinter as ctk
 import SpotifyRequest as req
 
-#TODO: fix ctk window sizing issues on windows 10 devices
 
 
 ctk.set_appearance_mode("System")
