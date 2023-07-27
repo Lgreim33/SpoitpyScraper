@@ -64,9 +64,7 @@ def main():
     #play array will hold every found playlist
     playList = []
     playDict = {}
-    clicked = StringVar()
 
-    clicked.set("--playlists--")
 
     #create tuple of names of the playlsits
     for item in result:
@@ -76,7 +74,7 @@ def main():
     songsList = []
     
     #button to submit selected playlist in dropdown menu format
-    drop = ctk.CTkOptionMenu(master = top ,command = clicked ,values = playList, dynamic_resizing=True)
+    drop = ctk.CTkOptionMenu(master = top,values = playList, dynamic_resizing=True)
     drop.pack(pady = 10)
     #hitting subit gets songs from the playlist, and adds the items to a list of checkboxes
     get_songs = ctk.CTkButton(master = top, text = "Get Songs", command= lambda:
