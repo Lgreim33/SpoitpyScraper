@@ -17,20 +17,35 @@ class App(ctk.CTk):
         self.title("Fetcher")
         self.geometry("400x400")
 
+def add_Songs(top,songsList): 
+   #create selection menu of songs to search for
+    checkVar = StringVar()
+    checkItem = []
+    for song in songsList:
+        checkbox = ctk.CTkCheckBox(master=top, text=song["name"],variable=checkVar,
+                                   onvalue="on", offvalue= "off")
+        checkItem.append(checkbox)
+    
+    for item in checkItem:
+        item.pack()
+
 def main():
 
 
+    #get token
     token = req.get_token()
     #create window
     top = App()
 
+    #ask user for their username
     prompt = ctk.CTkLabel(top,text="Enter your Spotify UserName or User ID",fg_color="transparent",font=("arial",15))
     prompt.pack(padx = 10)
 
-    
+    #entry field for user submission
     user_Id = ctk.StringVar()
     entry = ctk.CTkEntry(top,textvariable = user_Id, width = 200)
     entry.pack(padx=20, pady=10)
+
 
     #get user button, have them pass their user ID
     submitButton = ctk.CTkButton(top,text="Enter",command=top.quit)
@@ -60,22 +75,16 @@ def main():
     
     songsList = []
     
-    #button to submit selected playlist
+    #button to submit selected playlist in dropdown menu format
     drop = ctk.CTkOptionMenu(master = top ,command = clicked ,values = playList, dynamic_resizing=True)
     drop.pack(pady = 10)
-    get_songs = ctk.CTkButton(master = top, text = "Get Songs", command=req.get_playlist_items(token,playDict[drop.get()],songsList))
+    #hitting subit gets songs from the playlist, and adds the items to a list of checkboxes
+    get_songs = ctk.CTkButton(master = top, text = "Get Songs", command= lambda:
+                              [req.get_playlist_items(token,playDict[drop.get()],songsList),
+                               add_Songs(top,songsList)])
     get_songs.pack()
     
-    #create selection menu of songs to search for
-    checkVar = StringVar()
-    checkItem = []
-    for song in songsList:
-        checkbox = ctk.CTkCheckBox(master=top, text=song["name"],variable=checkVar,
-                                   onvalue="on", offvalue= "off")
-        checkItem.append(checkbox)
-    
-    for item in checkItem:
-        item.pack()
+
     
     top.mainloop()
     print(songsList[0]["name"])
