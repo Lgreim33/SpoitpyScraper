@@ -22,7 +22,7 @@ def add_Songs(top,songsList):
     checkVar = StringVar()
     checkItem = []
     for song in songsList:
-        checkbox = ctk.CTkCheckBox(master=top, text=song["name"],variable=checkVar,
+        checkbox = ctk.CTkCheckBox(master=top, text=song["name"],variable = StringVar("on"),
                                    onvalue="on", offvalue= "off")
         checkItem.append(checkbox)
     
@@ -86,6 +86,9 @@ def main():
     
     top.mainloop()
     print(songsList[0]["name"])
+
+
+
 
 if __name__ == "__main__":
     main()
