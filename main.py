@@ -18,16 +18,17 @@ class App(ctk.CTk):
         self.geometry("400x400")
 
 def add_Songs(top,songsList): 
+    
    #create selection menu of songs to search for
-    checkVar = StringVar()
     checkItem = []
+    
     for song in songsList:
-        checkbox = ctk.CTkCheckBox(master=top, text=song["name"],variable = StringVar("on"),
-                                   onvalue="on", offvalue= "off")
+        checkbox = ctk.CTkCheckBox(master=top, text=song["name"],variable = IntVar(top,1),
+                                   onvalue= 1, offvalue= 0)
         checkItem.append(checkbox)
     
     for item in checkItem:
-        item.pack()
+        item.pack(pady = 5)
 
 def main():
 
@@ -60,11 +61,12 @@ def main():
     More recently played songs will be at the front of the array
     '''
     result = req.search_for_user_playlists(token, userID)
-    
+
+
+    #TODO remove playList[], its reduntant to playDict{}    
     #play array will hold every found playlist
     playList = []
     playDict = {}
-
 
     #create tuple of names of the playlsits
     for item in result:
