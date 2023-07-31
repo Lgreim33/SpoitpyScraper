@@ -15,20 +15,34 @@ class App(ctk.CTk):
     def __init__(self, *args, **kwargs):
         super().__init__(*args,**kwargs)
         self.title("Fetcher")
-        self.geometry("400x400")
+        self.geometry("400x450")
+        
+        
+class ScrollFrame(ctk.CTkScrollableFrame):
+    
+    def __init__(self,master,songList,**kwargs):
+        super().__init__(master,**kwargs)
+        self.configure(width = 250)
+        self.grid_columnconfigure(0,weight=1)
+        self.checkItems = []
+        self.add_Songs(songList)
+        
+        
+    
+        
 
-def add_Songs(top,songsList): 
-    
-   #create selection menu of songs to search for
-    checkItem = []
-    
-    for song in songsList:
-        checkbox = ctk.CTkCheckBox(master=top, text=song["name"],variable = IntVar(top,1),
-                                   onvalue= 1, offvalue= 0)
-        checkItem.append(checkbox)
-    
-    for item in checkItem:
-        item.pack(pady = 5)
+    def add_Songs(self,songsList): 
+        
+        #create selection menu of songs to search for
+        
+        for song in songsList:
+            checkbox = ctk.CTkCheckBox(master=self, text=song["name"],variable = IntVar(self,1),
+                                    onvalue= 1, offvalue= 0)
+            checkbox.grid(row = len(self.checkItems),column = 0, pady = (0,10),sticky = W)
+            self.checkItems.append(checkbox)
+            
+            
+        
 
 def main():
 
@@ -62,32 +76,33 @@ def main():
     '''
     result = req.search_for_user_playlists(token, userID)
 
-
-    #TODO remove playList[], its reduntant to playDict{}    
+  
     #play array will hold every found playlist
-    playList = []
     playDict = {}
 
     #create tuple of names of the playlsits
     for item in result:
-        playList.append(item["name"])
         playDict.update({item["name"] : item["id"]})
     
     songsList = []
     
     #button to submit selected playlist in dropdown menu format
-    drop = ctk.CTkOptionMenu(master = top,values = playList, dynamic_resizing=True)
+    drop = ctk.CTkOptionMenu(master = top,values = list(playDict.keys()), dynamic_resizing=True)
     drop.pack(pady = 10)
+    
+    
+    
     #hitting subit gets songs from the playlist, and adds the items to a list of checkboxes
     get_songs = ctk.CTkButton(master = top, text = "Get Songs", command= lambda:
                               [req.get_playlist_items(token,playDict[drop.get()],songsList),
-                               add_Songs(top,songsList)])
+                               ScrollFrame(top,songsList).pack(pady = 10)])
     get_songs.pack()
     
-
+    
+    
+    
     
     top.mainloop()
-    print(songsList[0]["name"])
 
 
 
