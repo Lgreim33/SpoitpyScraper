@@ -1,6 +1,5 @@
 #ignore
-#files named 'test' indicate a file that may only make sense when paired with specific instances of the code. Therefore they should be ignored when we push
 
 *.env
 __pycache__/
-*test
+*test.py
