@@ -26,20 +26,25 @@ class ScrollFrame(ctk.CTkScrollableFrame):
         self.grid_columnconfigure(0,weight=1)
         self.checkItems = []
         self.add_Songs(songList)
-        
-        
-    
-        
 
     def add_Songs(self,songsList): 
         
         #create selection menu of songs to search for
         
         for song in songsList:
-            checkbox = ctk.CTkCheckBox(master=self, text=song["name"],variable = IntVar(self,1),
-                                    onvalue= 1, offvalue= 0)
+            checkbox = ctk.CTkCheckBox(master=self, text=song["name"],variable = IntVar(self,0),
+                                    onvalue= 0, offvalue= 1)
             checkbox.grid(row = len(self.checkItems),column = 0, pady = (0,10),sticky = W)
             self.checkItems.append(checkbox)
+
+    #pass an empty list to get the list of songs that the user has checked off
+    def get_Checked(self,list_of_checked):
+
+        for check_box in self.checkItems:
+            if check_box.get() == 0:
+                list_of_checked.append(check_box.text)
+        
+
             
             
         
