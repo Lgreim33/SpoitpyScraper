@@ -17,6 +17,12 @@ class App(ctk.CTk):
         self.title("Fetcher")
         self.geometry("400x450")
         
+        #ask user for their username
+        prompt = ctk.CTkLabel(self,text="Enter your Spotify UserName or User ID",fg_color="transparent",font=("arial",15))
+        prompt.pack(padx = 10)
+        
+        
+        
         
 class ScrollFrame(ctk.CTkScrollableFrame):
     
@@ -57,9 +63,6 @@ def main():
     #create window
     top = App()
 
-    #ask user for their username
-    prompt = ctk.CTkLabel(top,text="Enter your Spotify UserName or User ID",fg_color="transparent",font=("arial",15))
-    prompt.pack(padx = 10)
 
     #entry field for user submission
     user_Id = ctk.StringVar()
