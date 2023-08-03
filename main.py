@@ -3,7 +3,7 @@ import tkinter as tk
 from tkinter import *
 import customtkinter as ctk
 import SpotifyRequest as req
-
+import ScrapeSongs as ScS
 
 
 ctk.set_appearance_mode("System")
@@ -69,10 +69,11 @@ def main():
     entry = ctk.CTkEntry(top,textvariable = user_Id, width = 200)
     entry.pack(padx=20, pady=10)
 
-
+    
     #get user button, have them pass their user ID
     submitButton = ctk.CTkButton(top,text="Enter",command=top.quit)
     submitButton.pack()
+    
     top.mainloop()
     userID = user_Id.get()
     
@@ -80,7 +81,6 @@ def main():
     send query to spotipy api.
     Returns an array of dictionaries 
     containing playlist info
-    More recently played songs will be at the front of the array
     '''
     result = req.search_for_user_playlists(token, userID)
 
@@ -88,16 +88,15 @@ def main():
     #play array will hold every found playlist
     playDict = {}
 
-    #create tuple of names of the playlsits
+    #fill playlist dictionary
     for item in result:
         playDict.update({item["name"] : item["id"]})
     
     songsList = []
     
-    #button to submit selected playlist in dropdown menu format
+    #dropdown menu containing playlist names
     drop = ctk.CTkOptionMenu(master = top,values = list(playDict.keys()), dynamic_resizing=True)
     drop.pack(pady = 10)
-    
     
     
     #hitting subit gets songs from the playlist, and adds the items to a list of checkboxes
