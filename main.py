@@ -1,6 +1,3 @@
-import os
-import tkinter as tk
-from tkinter import *
 import customtkinter as ctk
 import SpotifyRequest as req
 import ScrapeSongs as ScS
@@ -38,9 +35,9 @@ class ScrollFrame(ctk.CTkScrollableFrame):
         #create selection menu of songs to search for
         
         for song in songsList:
-            checkbox = ctk.CTkCheckBox(master=self, text=song["name"],variable = IntVar(self,0),
+            checkbox = ctk.CTkCheckBox(master=self, text=song["name"],variable = ctk.IntVar(self,0),
                                     onvalue= 0, offvalue= 1)
-            checkbox.grid(row = len(self.checkItems),column = 0, pady = (0,10),sticky = W)
+            checkbox.grid(row = len(self.checkItems),column = 0, pady = (0,10),sticky = ctk.W)
             self.checkItems.append(checkbox)
 
     #pass an empty list to get the list of songs that the user has checked off
