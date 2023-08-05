@@ -21,9 +21,13 @@ class App(ctk.CTk):
         
 class DropMenu(ctk.CTkOptionMenu):
     
-    def __init__(self,master,values_list):
+    def __init__(self,master):
         super().__init__(master)
-        self.values = values_list
+        self.Menu = ctk.CTkOptionMenu(master=master,dynamic_resizing=True)
+        
+    def add_options(self,value_list):
+        self.Menu.configure(values = value_list)
+        
         
         
         
