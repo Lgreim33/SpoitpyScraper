@@ -1,5 +1,6 @@
 import customtkinter as ctk
 import SpotifyRequest as req
+import tkinter as tk
 import ScrapeSongs as ScS
 
 
@@ -17,6 +18,12 @@ class App(ctk.CTk):
         #ask user for their username
         prompt = ctk.CTkLabel(self,text="Enter your Spotify UserName or User ID",fg_color="transparent",font=("arial",15))
         prompt.pack(padx = 10)
+        
+class DropMenu(ctk.CTkOptionMenu):
+    
+    def __init__(self,master,values_list):
+        super().__init__(master)
+        self.values = values_list
         
         
         
@@ -62,7 +69,7 @@ def main():
 
 
     #entry field for user submission
-    user_Id = ctk.StringVar()
+    user_Id = tk.StringVar()
     entry = ctk.CTkEntry(top,textvariable = user_Id, width = 200)
     entry.pack(padx=20, pady=10)
 
@@ -70,16 +77,16 @@ def main():
     #get user button, have them pass their user ID
     submitButton = ctk.CTkButton(top,text="Enter",command=top.quit)
     submitButton.pack()
-    
     top.mainloop()
-    userID = user_Id.get()
+    
+   
     
     '''
     send query to spotipy api.
-    Returns an array of dictionaries 
+    Returns an array of objects 
     containing playlist info
     '''
-    result = req.search_for_user_playlists(token, userID)
+    result = req.search_for_user_playlists(token, user_Id.get())
 
   
     #play array will hold every found playlist
@@ -96,7 +103,7 @@ def main():
     drop.pack(pady = 10)
     
     
-    #hitting subit gets songs from the playlist, and adds the items to a list of checkboxes
+    #hitting submit gets songs from the playlist, and adds the items to a list of checkboxes
     get_songs = ctk.CTkButton(master = top, text = "Get Songs", command= lambda:
                               [req.get_playlist_items(token,playDict[drop.get()],songsList),
                                ScrollFrame(top,songsList).pack(pady = 10)])
