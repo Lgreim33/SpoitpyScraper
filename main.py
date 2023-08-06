@@ -24,7 +24,8 @@ class DropMenu(ctk.CTkOptionMenu):
     def __init__(self,master):
         super().__init__(master)
         self.Menu = ctk.CTkOptionMenu(master=master,dynamic_resizing=True)
-        
+    
+    #will be called after the menu gets created, and after the program gets te list of playlists, but before the menue gets packed
     def add_options(self,value_list):
         self.Menu.configure(values = value_list)
         
@@ -57,10 +58,7 @@ class ScrollFrame(ctk.CTkScrollableFrame):
         for check_box in self.checkItems:
             if check_box.get() == 0:
                 list_of_checked.append(check_box.text)
-        
-
-            
-            
+         
         
 
 def main():
@@ -77,7 +75,8 @@ def main():
     entry = ctk.CTkEntry(top,textvariable = user_Id, width = 200)
     entry.pack(padx=20, pady=10)
 
-    
+    #create dropdown menu:
+    #drop = DropMenu(top)
     #get user button, have them pass their user ID
     submitButton = ctk.CTkButton(top,text="Enter",command=top.quit)
     submitButton.pack()
@@ -90,16 +89,10 @@ def main():
     Returns an array of objects 
     containing playlist info
     '''
-    result = req.search_for_user_playlists(token, user_Id.get())
+    playDict = req.search_for_user_playlists(token, user_Id.get())
 
-  
-    #play array will hold every found playlist
-    playDict = {}
 
-    #fill playlist dictionary
-    for item in result:
-        playDict.update({item["name"] : item["id"]})
-    
+    #create variabe to store song names
     songsList = []
     
     #dropdown menu containing playlist names
@@ -115,11 +108,7 @@ def main():
     
     
     
-    
-    
     top.mainloop()
-
-
 
 
 if __name__ == "__main__":

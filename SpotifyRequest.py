@@ -42,7 +42,11 @@ def search_for_user_playlists(token,user_id):
     if(len(json_result) == 0):
         return None
     
-    return json_result
+    playDict = {}
+    for item in json_result:
+        playDict.update({item["name"] : item["id"]})
+    
+    return playDict
 
 def get_playlist_items(token,playlist_id,songList):
     url = f"https://api.spotify.com/v1/playlists/{playlist_id}/tracks"
