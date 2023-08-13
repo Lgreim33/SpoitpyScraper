@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import base64
 import json
 from requests import post,get
+from songClass import song
 
 
 
@@ -60,6 +61,6 @@ def get_playlist_items(token,playlist_id,songList):
         return
     
     for item in json_result:
-        songList.append(item["track"])
+        songList.append(song(item["track"]["name"],item["track"]["artists"]))
     return
 

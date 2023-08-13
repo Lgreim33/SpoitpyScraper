@@ -1,12 +1,16 @@
+import tkinter as tk
+from tkinter.filedialog import askopenfilename
 import customtkinter as ctk
 import SpotifyRequest as req
 import tkinter as tk
 import ScrapeSongs as ScS
+from songClass import song
 
 
 ctk.set_appearance_mode("System")
 
 ctk.set_default_color_theme("green")
+
 
 class App(ctk.CTk):
 
@@ -25,9 +29,7 @@ class DropMenu(ctk.CTkOptionMenu):
     #will be called after the menu gets created, and after the program gets te list of playlists, but before the menue gets packed
     def add_options(self,value_list):
         self.Menu.configure(values=value_list)
-        
-       
-        
+             
         
 class ScrollFrame(ctk.CTkScrollableFrame):
     
@@ -43,7 +45,7 @@ class ScrollFrame(ctk.CTkScrollableFrame):
         #create selection menu of songs to search for
         
         for song in songList:
-            checkbox = ctk.CTkCheckBox(master=self, text=song["name"],variable = ctk.IntVar(self,0),
+            checkbox = ctk.CTkCheckBox(master=self, text=song.getName(),variable = ctk.IntVar(self,0),
                                     onvalue= 0, offvalue= 1)
             checkbox.grid(row=len(self.checkItems),column=0, pady=(0,10),sticky=ctk.W)
             self.checkItems.append(checkbox)
@@ -64,6 +66,7 @@ def main():
     token = req.get_token()
     #create window
     top = App("Fetcher", "400x500")
+    pathPop =("")
 
     #ask user for their username
     prompt = ctk.CTkLabel(top,text="Enter your Spotify UserName or User ID",fg_color="transparent",font=("arial",15))
@@ -100,7 +103,7 @@ def main():
     drop.pack(pady = 10)
     
     SongFrame = ScrollFrame(master=top)
-    fetch_button = ctk.CTkButton(master=top,text="Fetch",command=top.quit())
+    fetch_button = ctk.CTkButton(master=top,text="Fetch",command=askopenfilename())
 
     #hitting submit gets songs from the playlist, and adds the items to a list of checkboxes
     get_songs = ctk.CTkButton(master=top, text="Get Songs", command=lambda:
@@ -112,9 +115,10 @@ def main():
     get_songs.pack()
 
     
-    
+
     
     top.mainloop()
+
 
 
 if __name__ == "__main__":
