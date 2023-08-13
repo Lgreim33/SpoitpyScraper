@@ -1,4 +1,5 @@
 import bs4
+import requests
 import pytube
 
 def Search_Tube(SongList):
@@ -11,11 +12,9 @@ def Search_Tube(SongList):
     if len(results) == 0:
         return None
     return results
-'''
+
 def main():
     SongList = ["Thats what You Get by Paramore"]
     results = Search_Tube(SongList)
     print(results) 
     return
-
-main()'''

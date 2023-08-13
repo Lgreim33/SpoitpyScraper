@@ -55,7 +55,7 @@ def get_playlist_items(token,playlist_id,songList):
     result = get(url,headers = headers)
     json_result = json.loads(result.content)["items"]
 
-    if(len(json_result) == 0):
+    if(len(json_result)==0):
         songList = None
         return
     
