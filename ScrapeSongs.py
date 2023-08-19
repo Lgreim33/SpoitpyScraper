@@ -1,5 +1,3 @@
-import bs4
-import requests
 import pytube
 
 def Search_Tube(SongList):
@@ -13,8 +11,11 @@ def Search_Tube(SongList):
         return None
     return results
 
-def main():
-    SongList = ["Thats what You Get by Paramore"]
-    results = Search_Tube(SongList)
-    print(results) 
-    return
+
+def download_songs(SongList):
+    songsToDownload = []
+    songsToDownload = Search_Tube(SongList)
+    print(songsToDownload)
+    
+        
+    

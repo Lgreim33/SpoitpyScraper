@@ -103,7 +103,7 @@ def main():
     drop.pack(pady = 10)
     
     SongFrame = ScrollFrame(master=top)
-    fetch_button = ctk.CTkButton(master=top,text="Fetch",command=askopenfilename())
+    fetch_button = ctk.CTkButton(master=top,text="Fetch",command = ScS.download_songs(SongFrame.get_Checked()))
 
     #hitting submit gets songs from the playlist, and adds the items to a list of checkboxes
     get_songs = ctk.CTkButton(master=top, text="Get Songs", command=lambda:
