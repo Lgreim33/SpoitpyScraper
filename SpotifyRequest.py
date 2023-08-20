@@ -38,7 +38,11 @@ def search_for_user_playlists(token,user_id):
     headers = get_auth_header(token)
     
     result = get(url,headers=headers)
-    json_result = json.loads(result.content)["items"]
+    try:
+        json_result = json.loads(result.content)["items"]
+    except:
+        print("Error Occured fetching items from User")
+        return None
     
     if(len(json_result) == 0):
         return None
