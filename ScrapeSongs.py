@@ -1,15 +1,15 @@
 import pytube
 
 def Search_Tube(SongList):
-    results = list()
+    videos = list()
     for song in SongList:
         s = pytube.Search(song)
         #if we got back any results, go ahead and add the first youtube object to our results list
         if len(s.results) != 0:
-            results.append(s.results[0])
-    if len(results) == 0:
+            videos.append(s.results[0])
+    if len(videos) == 0:
         return None
-    return results
+    return videos
 
 
 def download_songs(SongList):

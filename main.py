@@ -2,37 +2,78 @@ import SpotifyRequest as req
 import ScrapeSongs as ScS
 from songClass import song
   
-def removeSong():
+def printSongs(songList):
+    print("------")
+    print("Songs:")
+    print("------")
+    for i,songs in enumerate(songList):
+        print(str(i+1)+".",songs.name)
+    return
+        
+        
+        
+def removeSong(songList):
+    
+    while True:
+        
+        songToRemove = int(input("Enter an integer identifier of the song to remove: "))
+        
+        if not 1 < songToRemove  <= len(songList):
+            print("Invalid Entry")
+            continue
+        break
+    del songList[songToRemove-1]
     return
 
-def downloadSongs():
+def downloadSongs(songList):
+    
+    #TODO get path to save songs to
+    
+    ScS.download_songs(songList)
+    
     return
 def main():
 
     
-    #get token
-    token = req.get_token()
 
-    #ask user for their username    
-    userID = input("Enter your Spotify UserName or User ID:\n")
-   
-    ''' 
-    send query to spotipy api.
-    Returns an array of objects 
-    containing playlist info
-    '''
 
-    playDict = req.search_for_user_playlists(token, userID)
-    if playDict == None:
-        print(f"No playlists were found for user: {userID}")
+    while True:
+        #ask user for their username    
+        userID = input("Enter your Spotify UserName or User ID:\n")
+    
+    
+        #get token
+        token = req.get_token()
+        
+        ''' 
+        send query to spotipy api.
+        Returns an array of objects 
+        containing playlist info
+        '''
+
+        playDict = req.search_for_user_playlists(token, userID)
+        if playDict == None:
+            print(f"No playlists were found for user: {userID}")
+            
+            
+            tryAgain = str(input("Try again?[y/n]: "))
+            
+            if tryAgain == 'y': 
+                continue
+            else:
+                return
+        break
+                
+                
+            
     if(len(playDict) == 0):
         print("\nNo playlists found")
         return
     
-    songsList = []
+    songList = []
     #print list of playlists
     for i,items in enumerate(playDict):
-        print(i+1,"."+items)
+        print(str(i+1)+".",items)
     while True:
         try:
             selectedPlaylist = int(input(f'Pick Playlist to Return(1-{len(playDict)}): '))
@@ -45,35 +86,38 @@ def main():
             continue
         break
 
-    req.get_playlist_items(token,playDict[list(playDict.keys())[selectedPlaylist-1]],songsList)
+    req.get_playlist_items(token,playDict[list(playDict.keys())[selectedPlaylist-1]],songList)
     
     
-    print("------")
-    print("Songs:")
-    print("------")
-    for songs in songsList:
-        print(songs.name)
+    printSongs(songList)
     
     
     #menu for removing songs before fetching
-    
     while True:
-        try:
-            userSelection = int(input("1.Remove Song From List\n2.Fetch Songs\n3.Quit\n"))
-        except ValueError:
-            print("Woah, thats not a valid entry! Please enter an integer between 1 and 3")
-            continue
-        if not 1 <= userSelection <=3 :
-            print("Please Select a Valid Option")
-            continue
-        break
+        while True:
+            print("--------")
+            print("Menu")
+            print("--------")
             
-    if userSelection == 1:
-        removeSong()
-    elif userSelection == 2:
-        downloadSongs()
-    elif userSelection == 3:
-            return         
+            try:
+                userSelection = int(input("1.Remove Song From List\n2.Fetch Songs\n3.Cancel\n"))
+            except ValueError:
+                print("Woah, thats not a valid entry! Please enter an integer between 1 and 3")
+                continue
+            if not 1 <= userSelection <=3 :
+                print("Please Select a Valid Option")
+                continue
+            break
+            
+        if userSelection == 1:
+            removeSong(songList)
+            printSongs(songList)
+            continue
+        elif userSelection == 2:
+            downloadSongs(songList)
+            break
+        elif userSelection == 3:
+                return         
     
     
 
